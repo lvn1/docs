@@ -1,24 +1,24 @@
 import { useRef, useState, createElement, useEffect } from 'react';
-import { Details, Summary } from './styles';
 import { Expand, DeepDive } from './icons';
-import { trackExpanderOpen } from '../../utils/track';
+import { IconChevron } from '@/components/Icons';
+import { trackExpanderOpen } from '@/utils/track';
 
 type AccordionProps = {
   title?: string;
   headingLevel?: string;
   eyebrow?: string;
+  children: React.ReactNode;
 };
 
-const Accordion: React.FC<AccordionProps> = ({
+export const Accordion: React.FC<AccordionProps> = ({
   title,
   headingLevel,
   eyebrow,
   children
 }) => {
-  const [closeButton, setCloseButton] = useState(true);
   const [initialHeight, setInitialHeight] = useState(0);
   const [expandedHeight, setExpandedHeight] = useState(0);
-  const docsExpander = useRef<HTMLElement>(null);
+  const docsExpander = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     const expander = docsExpander.current;
@@ -29,12 +29,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
     setInitialHeight(initHeight);
     setExpandedHeight(expHeight);
-
-    // Current decision is to leave the footer close on all expanders
-    // if (expandedHeight > window.innerHeight) {
-    //   setCloseButton(true);
-    // }
-  }, [initialHeight, expandedHeight, closeButton]);
+  }, [initialHeight, expandedHeight]);
 
   function getHiddenHeight(el) {
     if (!el?.cloneNode) {
@@ -96,7 +91,7 @@ const Accordion: React.FC<AccordionProps> = ({
         top: scrollToLoc,
         behavior: 'smooth'
       });
-      setTimeout(function() {
+      setTimeout(function () {
         expander.removeAttribute('open');
       }, 700);
     }
@@ -109,7 +104,7 @@ const Accordion: React.FC<AccordionProps> = ({
     // Close accordion
     if (expander?.hasAttribute('open')) {
       expander?.animate(collapse, animationTiming);
-      setTimeout(function() {
+      setTimeout(function () {
         expander.removeAttribute('open');
       }, 700);
     } else {
@@ -121,12 +116,12 @@ const Accordion: React.FC<AccordionProps> = ({
   };
 
   return (
-    <Details
+    <details
       id={headingId + '-acc'}
       className="docs-expander"
       ref={docsExpander}
     >
-      <Summary
+      <summary
         id="docs-expander__summary"
         className="docs-expander__summary"
         onClick={toggleAccordion}
@@ -139,21 +134,18 @@ const Accordion: React.FC<AccordionProps> = ({
         <div className="docs-expander__title__indicator">
           <Expand />
         </div>
-      </Summary>
+      </summary>
       <div id="docs-expander__body" className="docs-expander__body">
         {children}
       </div>
-      {closeButton ? (
-        <button
-          id="docs-expander__body__button"
-          className="docs-expander__body__button"
-          onClick={closeAccordion}
-        >
-          <Expand />
-        </button>
-      ) : null}
-    </Details>
+
+      <button
+        id="docs-expander__body__button"
+        className="docs-expander__body__button"
+        onClick={closeAccordion}
+      >
+        <Expand />
+      </button>
+    </details>
   );
 };
-
-export default Accordion;
