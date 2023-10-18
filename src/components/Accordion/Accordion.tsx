@@ -1,51 +1,42 @@
 import { useRef, useState, createElement, useEffect } from 'react';
+import { View, Link } from '@aws-amplify/ui-react';
 import { Expand, DeepDive } from './icons';
 import { IconChevron } from '@/components/Icons';
 import { trackExpanderOpen } from '@/utils/track';
 
 type AccordionProps = {
   title?: string;
-  headingLevel?: string;
+  headingLevel?: '2' | '3' | '4' | '5' | '6';
   eyebrow?: string;
   children: React.ReactNode;
 };
 
+const linkableHeadings = ['2', '3'];
+
 export const Accordion: React.FC<AccordionProps> = ({
   title,
-  headingLevel,
+  headingLevel: headingLevel,
   eyebrow,
   children
 }) => {
-  const [initialHeight, setInitialHeight] = useState(0);
-  const [expandedHeight, setExpandedHeight] = useState(0);
   const docsExpander = useRef<HTMLDetailsElement>(null);
 
-  useEffect(() => {
-    const expander = docsExpander.current;
-
-    const initHeight =
-      expander?.children['docs-expander__summary']?.offsetHeight;
-    const expHeight = getHiddenHeight(expander);
-
-    setInitialHeight(initHeight);
-    setExpandedHeight(expHeight);
-  }, [initialHeight, expandedHeight]);
-
-  function getHiddenHeight(el) {
-    if (!el?.cloneNode) {
-      return null;
-    }
-
-    const clone = el.cloneNode(true);
-    clone.setAttribute('open', '');
-    el.after(clone);
-    const height = clone.offsetHeight;
-    clone.remove();
-    return height;
-  }
+  // useEffect(() => {
+  //   if(title) {
+  //     setHeadingId(title?.replace(/\s+/g, '-').toLowerCase())
+  //     setHref(window.location.pathname + '#' + headingId);
+  //   }
+  // }, [title, headingId]);
 
   const headingId = title?.replace(/\s+/g, '-').toLowerCase();
-  headingLevel = headingLevel ? 'h' + headingLevel : 'div';
+  const linkableHeading =
+    headingLevel && linkableHeadings.includes[headingLevel];
+  const headingEl: React.ElementType = linkableHeading
+    ? `h${headingLevel}`
+    : 'div';
+
+  const href = headingId ? window.location.pathname + '#' + headingId : null;
+
   const expanderTitle = createElement(
     headingLevel,
     {
@@ -61,19 +52,25 @@ export const Accordion: React.FC<AccordionProps> = ({
     expanderTitle
   );
 
-  const collapse = [
-    {
-      maxHeight: expandedHeight + 'px'
-    },
-    { maxHeight: initialHeight + 'px' }
-  ];
+  const anchor = createElement(
+    'a',
+    { href: window.location.pathname + '#' + headingId },
+    expanderTitle
+  );
 
-  const expand = [
-    { maxHeight: initialHeight + 'px' },
-    {
-      maxHeight: expandedHeight + 'px'
-    }
-  ];
+  // const collapse = [
+  //   {
+  //     maxHeight: expandedHeight + 'px'
+  //   },
+  //   { maxHeight: initialHeight + 'px' }
+  // ];
+
+  // const expand = [
+  //   { maxHeight: initialHeight + 'px' },
+  //   {
+  //     maxHeight: expandedHeight + 'px'
+  //   }
+  // ];
 
   const animationTiming = {
     duration: 700,
@@ -130,7 +127,9 @@ export const Accordion: React.FC<AccordionProps> = ({
           <DeepDive />
           {eyebrow}
         </div>
-        {anchor}
+        <View as={headingEl}>
+          {href ? <Link href={href}>{title}</Link> : title}
+        </View>
         <div className="docs-expander__title__indicator">
           <Expand />
         </div>
