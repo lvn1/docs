@@ -2,6 +2,15 @@
   padding: var(--amplify-space-medium);
   border: 1px solid var(--amplify-colors-neutral-20);
 }
-.block {
+
+.block-switcher__tab-list {
+  margin-bottom: var(--amplify-space-medium);
+}
+
+.block-switcher__tab-panel {
   flex-direction: column;
+  display: none;
+  &--active {
+    display: flex;
+  }
 }

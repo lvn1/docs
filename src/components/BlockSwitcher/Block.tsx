@@ -1,4 +1,4 @@
-import { View, Flex } from '@aws-amplify/ui-react';
+import { View } from '@aws-amplify/ui-react';
 
 interface BlockProps {
   name: string;
@@ -6,5 +6,5 @@ interface BlockProps {
 }
 
 export const Block = ({ children }: BlockProps) => {
-  return <Flex className="block">{children}</Flex>;
+  return <View>{children}</View>;
 };
