@@ -47,7 +47,7 @@ export default function Page() {
           the cloud for authentication, storage, APIs, and more.
         </Text>
 
-        <Flex>
+        <Flex className="home-intro__cta">
           <Button variation="primary" size="large" gap="small">
             How Amplify Works{' '}
             <IconChevron

@@ -15,6 +15,9 @@ export const defaultTheme: Theme = {
         80: { value: 'hsl(181, 69%, 28%)' },
         90: { value: 'hsl(181, 69%, 21%)' },
         100: { value: 'hsl(181, 69%, 15%)' }
+      },
+      blue: {
+        10: { value: 'hsl(207, 76%, 90%)' }
       }
     },
     fontSizes: {
@@ -61,8 +64,18 @@ export const defaultTheme: Theme = {
           }
         },
         large: {
-          paddingInlineStart: { value: '{space.xl.value}' },
-          paddingInlineEnd: { value: '{space.xl.value}' }
+          paddingInlineStart: { value: '{space.xl}' },
+          paddingInlineEnd: { value: '{space.xl}' }
+        }
+      },
+      message: {
+        paddingBlock: { value: '{space.large}' },
+        paddingInline: { value: '{space.large}' },
+        borderRadius: { value: '{radii.medium}' },
+        filled: {
+          info: {
+            color: { value: '{colors.font.primary}' }
+          }
         }
       }
     }

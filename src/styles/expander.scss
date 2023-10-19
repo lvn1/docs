@@ -1,0 +1,84 @@
+.expander {
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+  &[open] .expander__chevron {
+    transform: rotate(-180deg);
+  }
+  .expander__summary::marker {
+    display: none;
+  }
+}
+
+.expander__summary {
+  padding: var(--amplify-space-small);
+  background: var(--amplify-colors-teal-10);
+  border: 1px solid var(--amplify-colors-teal-60);
+  border-radius: var(--amplify-radii-small);
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus-visible {
+    border-color: var(--amplify-colors-border-focus);
+    box-shadow: 0 0 0 1px var(--amplify-colors-border-focus) inset;
+  }
+  .expander[open] & {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.expander__title-group {
+  flex-direction: column;
+  gap: var(--amplify-space-xxxs);
+}
+
+.expander__title {
+  font-size: var(--amplify-font-sizes-medium);
+  color: var(--amplify-colors-font-primary);
+  font-weight: 700;
+  &__link {
+    color: var(--amplify-colors-font-primary);
+    &:visited {
+      color: var(--amplify-colors-font-primary);
+    }
+    &:focus {
+      outline: 2px solid var(--amplify-colors-border-focus);
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+.expander__eyebrow {
+  align-items: center;
+  gap: var(--amplify-space-xxs);
+  font-size: var(--amplify-font-sizes-small);
+}
+.expander__deepdive {
+  color: var(--amplify-colors-teal-60);
+}
+
+.expander__chevron {
+  margin: auto 0 auto auto;
+  color: var(--amplify-colors-teal-60);
+}
+.expander__body {
+  padding: var(--amplify-space-small);
+  border-left: 1px solid var(--amplify-colors-teal-60);
+  border-right: 1px solid var(--amplify-colors-teal-60);
+}
+.expander__body__button {
+  border-radius: 0 0 var(--amplify-radii-small) var(--amplify-radii-small);
+  width: 100%;
+  background-color: var(--amplify-colors-teal-10);
+  border: 1px solid var(--amplify-colors-teal-60);
+  padding: var(--amplify-space-small);
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    border-color: var(--amplify-colors-border-focus);
+    box-shadow: 0 0 0 1px var(--amplify-colors-border-focus) inset;
+  }
+}
