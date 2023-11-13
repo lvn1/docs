@@ -14,7 +14,7 @@ export const frameworks = [
     title: 'JavaScript',
     key: 'javascript',
     href: '/javascript',
-    icon: <IconJS />
+    icon: <IconJS className="amplify-icon--monochrome" />
   },
   {
     title: 'React',

@@ -1,6 +1,12 @@
 .amplify-icon {
   transform-origin: center center;
   transition: transform 0.2s ease-out;
+  // Use this class on the Icon to show the monochrome version if it exists
+  &--monochrome {
+    .icon-monochrome {
+      opacity: 1;
+    }
+  }
 }
 .icon {
   transform-origin: center center;
